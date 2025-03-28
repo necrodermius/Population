@@ -52,20 +52,20 @@ def test_read_population_data(population_file):
     ],
 )
 def test_sort_by_area(input, expected, capsys):
-   
+
     sort_by_area(input)
     captured = capsys.readouterr()
 
     lines = captured.out.strip().split("\n")
 
-    sorted_lines = lines[1:] 
-    
+    sorted_lines = lines[1:]
+
     result_countries = []
     for line in sorted_lines:
         parts = line.split(":")
         country = parts[0].strip()
         result_countries.append(country)
-    
+
     assert result_countries == expected
 
 
