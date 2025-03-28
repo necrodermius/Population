@@ -19,3 +19,10 @@ def sort_by_area(data):
     print("\nСортування за площею:")
     for country, area, population in sorted_data:
         print(f"{country}: {area} км², {population} осіб")
+
+
+def sort_by_population(data):
+    sorted_data = sorted(data, key=lambda x: x[2], reverse=True)
+    print("\nСортування за населенням:")
+    for country, area, population in sorted_data:
+        print(f"{country}: {area} км², {population} осіб")
