@@ -7,7 +7,7 @@ def read_population_data(filename):
                 country, area, population = parts[0], parts[1], parts[2]
                 try:
                     area = float(area)
-                    population = int(population)
+                    population = float(population)
                     data.append((country, area, population))
                 except ValueError:
                     print(f"Помилка у рядку: {line.strip()}")
@@ -25,4 +25,12 @@ def sort_by_population(data):
     sorted_data = sorted(data, key=lambda x: x[2], reverse=True)
     print("\nСортування за населенням:")
     for country, area, population in sorted_data:
-        print(f"{country}: {area} км², {population} осіб")
+        print(f"{country}: {area} км², {population} млн осіб")
+
+
+if __name__ == "__main__":
+    filename = "population.txt"
+    data = read_population_data(filename)
+    if data:
+        sort_by_area(data)
+        sort_by_population(data)
