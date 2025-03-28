@@ -1,5 +1,34 @@
 import pytest
-from main import sort_by_area, sort_by_population
+from main import sort_by_area, sort_by_population, read_population_data
+
+
+@pytest.fixture
+def population_file(tmp_path):
+    d = tmp_path / "data"
+    d.mkdir()
+    file_path = d / "test_population.txt"
+    file_content = """Ukraine,603.7,44.13
+Germany,357.4,83.02
+Poland,312.7,37.97
+invalid line
+Brazil,8516,211.05
+"""
+    file_path.write_text(file_content, encoding='utf-8')
+    return file_path
+
+
+def test_read_population_data(population_file):
+    data = read_population_data(population_file)
+    assert len(data) == 4
+
+    expected = [
+        ("Ukraine", 603.7, 44.13),
+        ("Germany", 357.4, 83.02),
+        ("Poland", 312.7, 37.97),
+        ("Brazil", 8516.0, 211.05)
+    ]
+    assert data == expected
+
 
 @pytest.mark.parametrize(
     "input, expected",
@@ -76,4 +105,3 @@ def test_sort_by_population(input, expected, capsys):
         result_countries.append(country)
     
     assert result_countries == expected
-
